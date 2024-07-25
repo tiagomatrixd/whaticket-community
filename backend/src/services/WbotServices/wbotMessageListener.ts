@@ -255,6 +255,14 @@ const handleMessage = async (
     let msgContact: WbotContact;
     let groupContact: Contact | undefined;
 
+    //remove non-user contacts
+    const idcontact =  await msg.getChat()
+    const isNotUser = idcontact.id.server !== 'c.us'
+
+    if(isNotUser) {
+      return;
+    }
+
     if (msg.fromMe) {
       // messages sent automatically by wbot have a special character in front of it
       // if so, this message was already been stored in database;
